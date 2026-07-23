@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../project-forge"
+		},
+		{
+			"path": "../routes"
+		},
+		{
+			"path": "../services"
+		},
+		{
+			"path": "../static"
+		},
+		{
+			"path": "../templates"
+		}
+	]
+}

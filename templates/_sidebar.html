@@ -1,0 +1,48 @@
+<button class="mobile-toggle" id="mobileToggle">☰</button>
+<aside class="sidebar glass" id="sidebar">
+  <div class="sidebar-user">
+    <div class="avatar">{{ user.full_name[0]|upper }}</div>
+    <div>
+      <div class="name">{{ user.full_name }}</div>
+      <div class="sub">{{ user.department }}</div>
+    </div>
+  </div>
+  <nav>
+    <a href="{{ url_for('dashboard.dashboard') }}" class="nav-link {% if active=='dashboard' %}active{% endif %}">
+      <span class="icon">🏠</span> Dashboard
+    </a>
+    <a href="{{ url_for('project.submit_idea') }}" data-tutorial="submit-idea" class="nav-link {% if active=='submit_idea' %}active{% endif %}">
+      <span class="icon">💡</span> Submit Idea
+    </a>
+    <a href="{{ url_for('project.my_projects') }}" data-tutorial="my-projects" class="nav-link {% if active=='my_projects' %}active{% endif %}">
+      <span class="icon">📁</span> My Projects
+    </a>
+    <a href="#" data-tutorial="ai-assistant" class="nav-link" onclick="startTutorial(); return false;">
+      <span class="icon">🤖</span> AI Assistant
+    </a>
+    <a href="{{ url_for('mentor.mentors') }}" data-tutorial="mentor" class="nav-link {% if active=='mentor' %}active{% endif %}">
+      <span class="icon">👨‍🏫</span> Mentor
+    </a>
+    <a href="{{ url_for('project.my_projects') }}#similar" data-tutorial="similar-projects" class="nav-link">
+      <span class="icon">🔍</span> Similar Projects
+    </a>
+    <a href="{{ url_for('project.my_projects') }}#future" data-tutorial="future-scope" class="nav-link">
+      <span class="icon">🔭</span> Future Scope
+    </a>
+    <a href="{{ url_for('project.my_projects') }}#docs" data-tutorial="documentation" class="nav-link">
+      <span class="icon">📄</span> Documentation
+    </a>
+    <a href="{{ url_for('project.my_projects') }}#ppt" data-tutorial="ppt-generator" class="nav-link">
+      <span class="icon">📊</span> PPT Generator
+    </a>
+    <a href="{{ url_for('feedback.feedback') }}" class="nav-link {% if active=='feedback' %}active{% endif %}">
+      <span class="icon">💬</span> Feedback
+    </a>
+    <a href="{{ url_for('profile.settings') }}" class="nav-link {% if active=='settings' %}active{% endif %}">
+      <span class="icon">⚙️</span> Settings
+    </a>
+    <a href="{{ url_for('profile.profile') }}" data-tutorial="profile" class="nav-link {% if active=='profile' %}active{% endif %}">
+      <span class="icon">👤</span> User Profile
+    </a>
+  </nav>
+</aside>

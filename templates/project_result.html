@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% block title %}{{ project.title }} — Project Forge{% endblock %}
+{% block content %}
+<div class="dash-layout">
+  {% include "_sidebar.html" %}
+  {% set active = 'my_projects' %}
+
+  <main class="main-content">
+    <div class="glass result-header">
+      <span class="domain-tag">{{ project.domain }}</span>
+      <h1>{{ project.title }}</h1>
+      <p class="abstract">{{ project.abstract }}</p>
+    </div>
+
+    <!-- AI-generated concept / architecture visual -->
+    <div class="result-image">
+      <div class="arch-icon">
+        {% if 'AI' in project.domain %}🧠
+        {% elif 'Mobile' in project.domain %}📱
+        {% elif 'IoT' in project.domain %}🔌
+        {% else %}🌐{% endif %}
+      </div>
+      <span class="arch-caption">Concept architecture — {{ project.domain }} system</span>
+    </div>
+
+    <div class="glass result-section">
+      <h2><span class="sec-icon">🎯</span> Problem Statement</h2>
+      <p>{{ project.problem_statement }}</p>
+    </div>
+
+    <div class="glass result-section">
+      <h2><span class="sec-icon">📌</span> Objectives</h2>
+      <ul>{% for o in project.objectives %}<li>{{ o }}</li>{% endfor %}</ul>
+    </div>
+
+    <div class="glass result-section">
+      <h2><span class="sec-icon">⚙️</span> Features</h2>
+      <ul>{% for f in project.features %}<li>{{ f }}</li>{% endfor %}</ul>
+    </div>
+
+    <div class="grid two-col-grid">
+      <div class="glass result-section">
+        <h2><span class="sec-icon">✅</span> Advantages</h2>
+        <ul>{% for a in project.advantages %}<li>{{ a }}</li>{% endfor %}</ul>
+      </div>
+      <div class="glass result-section">
+        <h2><span class="sec-icon">⚠️</span> Disadvantages</h2>
+        <ul>{% for d in project.disadvantages %}<li>{{ d }}</li>{% endfor %}</ul>
+      </div>
+    </div>
+
+    <div class="glass result-section" id="similar">
+      <h2><span class="sec-icon">🔍</span> Similar Existing Projects</h2>
+      <ul>{% for s in project.similar_projects %}<li>{{ s }}</li>{% endfor %}</ul>
+    </div>
+
+    <div class="glass result-section">
+      <h2><span class="sec-icon">💎</span> Suggested Improvements</h2>
+      <ul>{% for s in project.suggested_improvements %}<li>{{ s }}</li>{% endfor %}</ul>
+    </div>
+
+    <div class="glass result-section" id="future">
+      <h2><span class="sec-icon">🔭</span> Future Scope</h2>
+      <ul>{% for f in project.future_scope %}<li>{{ f }}</li>{% endfor %}</ul>
+    </div>
+
+    <div class="glass result-section">
+      <h2><span class="sec-icon">🧰</span> Technology Stack</h2>
+      <div class="stack-block">
+        <div class="stack-label">Frontend</div>
+        <div class="tag-list">{% for t in project.tech_stack.frontend %}<span class="tag">{{ t }}</span>{% endfor %}</div>
+      </div>
+      <div class="stack-block">
+        <div class="stack-label">Backend</div>
+        <div class="tag-list">{% for t in project.tech_stack.backend %}<span class="tag">{{ t }}</span>{% endfor %}</div>
+      </div>
+      <div class="stack-block">
+        <div class="stack-label">Database</div>
+        <div class="tag-list">{% for t in project.tech_stack.database %}<span class="tag">{{ t }}</span>{% endfor %}</div>
+      </div>
+      <div class="stack-block">
+        <div class="stack-label">Programming Languages</div>
+        <div class="tag-list">{% for t in project.tech_stack.languages %}<span class="tag">{{ t }}</span>{% endfor %}</div>
+      </div>
+      <div class="stack-block">
+        <div class="stack-label">AI Models</div>
+        <div class="tag-list">{% for t in project.tech_stack.ai_models %}<span class="tag">{{ t }}</span>{% endfor %}</div>
+      </div>
+    </div>
+
+    <div class="glass result-section" id="docs">
+      <h2><span class="sec-icon">🗺️</span> Development Roadmap</h2>
+      {% for r in project.roadmap %}
+      <div class="roadmap-item">
+        <div class="roadmap-dot">{{ loop.index }}</div>
+        <div>
+          <h4>{{ r.phase }}</h4>
+          <p>{{ r.detail }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="grid meta-grid">
+      <div class="glass meta-item">
+        <div class="meta-icon">💰</div>
+        <div class="meta-value">{{ project.estimated_cost }}</div>
+        <div class="meta-label">Estimated Cost</div>
+      </div>
+      <div class="glass meta-item">
+        <div class="meta-icon">⏱️</div>
+        <div class="meta-value">{{ project.estimated_duration }}</div>
+        <div class="meta-label">Estimated Duration</div>
+      </div>
+      <div class="glass meta-item">
+        <div class="meta-icon">📈</div>
+        <div class="meta-value">{{ project.difficulty_level }}</div>
+        <div class="meta-label">Difficulty Level</div>
+      </div>
+    </div>
+
+    <div class="grid two-col-grid">
+      <div class="glass result-section">
+        <h2><span class="sec-icon">💻</span> Required Software</h2>
+        <ul>{% for s in project.required_software %}<li>{{ s }}</li>{% endfor %}</ul>
+      </div>
+      <div class="glass result-section">
+        <h2><span class="sec-icon">🔧</span> Required Hardware</h2>
+        <ul>{% for h in project.required_hardware %}<li>{{ h }}</li>{% endfor %}</ul>
+      </div>
+    </div>
+
+    <!-- Step-by-step development guide -->
+    <div class="page-header" style="margin-top:20px;">
+      <h1 style="font-size:22px;">📚 Step-by-Step Development Guide</h1>
+      <p>Beginner-friendly instructions to actually build this project.</p>
+    </div>
+    {% for step in dev_guide %}
+    <div class="glass guide-step">
+      <h3>{{ step.title }}</h3>
+      <pre>{{ step.content }}</pre>
+    </div>
+    {% endfor %}
+
+    <div class="result-actions" id="ppt">
+      <form method="POST" action="{{ url_for('project.update_status', project_id=project.id) }}" style="display:inline;">
+        <input type="hidden" name="status" value="saved">
+        <button type="submit" class="btn btn-primary">💾 Save Project</button>
+      </form>
+      <a href="{{ url_for('mentor.mentors') }}" class="btn btn-secondary">👨‍🏫 Find a Mentor for This</a>
+      <a href="{{ url_for('project.submit_idea') }}" class="btn btn-outline">➕ Submit Another Idea</a>
+    </div>
+  </main>
+</div>
+{% endblock %}

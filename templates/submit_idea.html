@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Submit Idea — Project Forge{% endblock %}
+{% block content %}
+<div class="dash-layout">
+  {% include "_sidebar.html" %}
+  {% set active = 'submit_idea' %}
+
+  <main class="main-content">
+    <div class="page-header">
+      <h1>💡 Submit Your Project Idea</h1>
+      <p>Describe what you want to build in your own words — I'll turn it into a complete project plan.</p>
+    </div>
+
+    <div class="glass" style="padding:32px; max-width:820px;">
+      <form method="POST" action="{{ url_for('project.generate') }}" id="ideaForm">
+        <div class="form-group">
+          <label>Your Idea</label>
+          <textarea name="idea_text" id="ideaText" class="idea-textarea"
+            placeholder="e.g. I want to build an AI attendance system using face recognition for my college."
+            required></textarea>
+        </div>
+
+        <div class="idea-examples">
+          <span class="idea-chip" data-idea="I want to build an AI attendance system using face recognition.">AI attendance system</span>
+          <span class="idea-chip" data-idea="I want to build an online food ordering website for my college canteen.">Food ordering website</span>
+          <span class="idea-chip" data-idea="I want to build a mobile app to track daily student expenses.">Expense tracker app</span>
+          <span class="idea-chip" data-idea="I want to build an IoT based smart irrigation system for farms.">Smart irrigation (IoT)</span>
+          <span class="idea-chip" data-idea="I want to build a chatbot that answers college FAQs for students.">College FAQ chatbot</span>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" id="generateBtn">
+          ✨ Generate Project
+        </button>
+      </form>
+
+      <div class="generating-loader" id="generatingLoader">
+        <div class="loader-spinner"></div>
+        <h3>Analyzing your idea…</h3>
+        <p class="loader-steps">Generating title, tech stack, roadmap, and development guide.</p>
+      </div>
+    </div>
+  </main>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+document.getElementById('ideaForm').addEventListener('submit', function () {
+  document.querySelector('.glass form').style.display = 'none';
+  document.getElementById('generatingLoader').classList.add('active');
+});
+</script>
+{% endblock %}

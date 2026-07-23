@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Settings — Project Forge{% endblock %}
+{% block content %}
+<div class="dash-layout">
+  {% include "_sidebar.html" %}
+  {% set active = 'settings' %}
+
+  <main class="main-content">
+    <div class="page-header">
+      <h1>⚙️ Settings</h1>
+      <p>Update your profile details and preferences.</p>
+    </div>
+
+    <div class="glass" style="padding:32px; max-width:600px;">
+      <form method="POST" action="{{ url_for('profile.settings') }}">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" name="full_name" class="form-control" value="{{ user.full_name }}" required>
+        </div>
+        <div class="form-group">
+          <label>Email (cannot be changed)</label>
+          <input type="email" class="form-control" value="{{ user.email }}" disabled>
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" name="phone" class="form-control" value="{{ user.phone }}" required>
+        </div>
+        <div class="form-group">
+          <label>College Name</label>
+          <input type="text" name="college_name" class="form-control" value="{{ user.college_name }}" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Department</label>
+            <input type="text" name="department" class="form-control" value="{{ user.department }}" required>
+          </div>
+          <div class="form-group">
+            <label>Year</label>
+            <select name="year" class="form-control" required>
+              {% for y in ["1st Year", "2nd Year", "3rd Year", "4th Year"] %}
+              <option value="{{ y }}" {% if user.year == y %}selected{% endif %}>{{ y }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
+      </form>
+    </div>
+
+    <div class="glass" style="padding:24px 32px; max-width:600px; margin-top:20px;">
+      <div class="flex-between">
+        <div>
+          <strong style="font-size:14px;">Dark Mode</strong>
+          <p style="font-size:12.5px; opacity:0.65; margin-top:2px;">Toggle from the moon icon in the navbar — your preference is saved automatically.</p>
+        </div>
+        <button class="theme-toggle" id="themeToggle2" onclick="document.getElementById('themeToggle').click()">🌙</button>
+      </div>
+    </div>
+  </main>
+</div>
+{% endblock %}

@@ -1,0 +1,37 @@
+<!-- AI Welcome Modal -->
+<div class="ai-welcome-modal" id="aiWelcomeModal" data-show="{{ 'true' if show_tutorial else 'false' }}">
+  <div class="ai-welcome-card glass">
+    <div class="ai-welcome-avatar">🤖</div>
+    <h2>Welcome to Project Forge, {{ user.full_name.split(' ')[0] }}!</h2>
+    <p>I'm your AI Project Guide. I'll help you build your project from idea to completion —
+       from generating a full project plan, to finding a mentor, to preparing your final documentation.
+       Want a quick tour of the dashboard?</p>
+    <div class="ai-welcome-actions">
+      <button class="btn btn-primary" onclick="closeAiWelcome(true)">Show me around →</button>
+      <button class="btn btn-secondary" onclick="closeAiWelcome(false)">Skip for now</button>
+    </div>
+  </div>
+</div>
+
+<!-- Tutorial Overlay -->
+<div class="tutorial-overlay" id="tutorialOverlay">
+  <div class="tutorial-spotlight" id="tutorialSpotlight"></div>
+  <div class="tutorial-tooltip glass" id="tutorialTooltip">
+    <div class="tt-guide">
+      <div class="tt-avatar">🤖</div>
+      <strong>AI Guide</strong>
+    </div>
+    <p id="tutorialText"></p>
+    <div class="tutorial-actions">
+      <button class="btn btn-outline btn-sm" id="tutorialBackBtn" onclick="prevStep()">← Back</button>
+      <span class="tutorial-progress" id="tutorialProgress"></span>
+      <div style="display:flex; gap:8px;">
+        <button class="btn btn-secondary btn-sm" onclick="endTutorial(true)">Skip</button>
+        <button class="btn btn-primary btn-sm" id="tutorialNextBtn" onclick="nextStep()">Next</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Floating AI guide bubble (replay tutorial anytime) -->
+<div class="ai-guide-bubble" title="Replay tutorial" onclick="startTutorial()">🤖</div>

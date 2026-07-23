@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard — Project Forge{% endblock %}
+{% block content %}
+{% include "ai_tutorial.html" %}
+<div class="dash-layout">
+  {% include "_sidebar.html" %}
+  {% set active = 'dashboard' %}
+
+  <main class="main-content">
+    <div class="page-header">
+      <h1>Hey {{ user.full_name.split(' ')[0] }} 👋</h1>
+      <p>Here's your Project Forge command center. Where would you like to start?</p>
+    </div>
+
+    <div class="grid stats-row">
+      <div class="glass stat-card">
+        <div class="num">{{ project_count }}</div>
+        <div class="label">Projects Generated</div>
+      </div>
+      <div class="glass stat-card">
+        <div class="num">{{ user.year }}</div>
+        <div class="label">Academic Year</div>
+      </div>
+      <div class="glass stat-card">
+        <div class="num">{{ user.department[:18] }}{% if user.department|length > 18 %}…{% endif %}</div>
+        <div class="label">Department</div>
+      </div>
+    </div>
+
+    <div class="grid cards-grid">
+      <a href="{{ url_for('project.submit_idea') }}" class="glass feature-card" data-tutorial="submit-idea-card">
+        <div class="fc-icon">💡</div>
+        <h3>Submit Idea</h3>
+        <p>Describe your idea and let AI generate a complete project plan.</p>
+      </a>
+      <a href="{{ url_for('project.my_projects') }}" class="glass feature-card">
+        <div class="fc-icon">📁</div>
+        <h3>My Projects</h3>
+        <p>Revisit, save, or continue building your generated projects.</p>
+      </a>
+      <a href="#" class="glass feature-card" onclick="startTutorial(); return false;">
+        <div class="fc-icon">🤖</div>
+        <h3>AI Assistant</h3>
+        <p>Replay the guided tour or get help navigating Project Forge.</p>
+      </a>
+      <a href="{{ url_for('mentor.mentors') }}" class="glass feature-card">
+        <div class="fc-icon">👨‍🏫</div>
+        <h3>Mentor</h3>
+        <p>Connect with experienced mentors for guidance on your project.</p>
+      </a>
+      <a href="{{ url_for('project.my_projects') }}" class="glass feature-card">
+        <div class="fc-icon">🔍</div>
+        <h3>Similar Projects</h3>
+        <p>Explore existing projects similar to your idea for inspiration.</p>
+      </a>
+      <a href="{{ url_for('project.my_projects') }}" class="glass feature-card">
+        <div class="fc-icon">🔭</div>
+        <h3>Future Scope</h3>
+        <p>See how your project could be extended or scaled further.</p>
+      </a>
+      <a href="{{ url_for('project.my_projects') }}" class="glass feature-card">
+        <div class="fc-icon">📄</div>
+        <h3>Documentation</h3>
+        <p>Auto-generated documentation ready for submission.</p>
+      </a>
+      <a href="{{ url_for('project.my_projects') }}" class="glass feature-card">
+        <div class="fc-icon">📊</div>
+        <h3>PPT Generator</h3>
+        <p>Turn your project into a presentation-ready outline.</p>
+      </a>
+      <a href="{{ url_for('profile.settings') }}" class="glass feature-card">
+        <div class="fc-icon">⚙️</div>
+        <h3>Settings</h3>
+        <p>Update your profile details and app preferences.</p>
+      </a>
+      <a href="{{ url_for('profile.profile') }}" class="glass feature-card">
+        <div class="fc-icon">👤</div>
+        <h3>User Profile</h3>
+        <p>Track your submitted projects, progress, and learning history.</p>
+      </a>
+    </div>
+
+    {% if projects %}
+    <div class="page-header" style="margin-top:36px;">
+      <h1 style="font-size:22px;">Recent Projects</h1>
+    </div>
+    <div class="grid cards-grid">
+      {% for p in projects[:3] %}
+      <a href="{{ url_for('project.view_project', project_id=p.id) }}" class="glass project-card">
+        <span class="pc-domain">{{ p.domain }}</span>
+        <h3>{{ p.title }}</h3>
+        <p class="pc-idea">{{ p.idea_text }}</p>
+        <span class="status-badge status-{{ p.status }}">{{ p.status.replace('_', ' ')|title }}</span>
+      </a>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </main>
+</div>
+
+{% include "_ai_guide.html" %}
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/tutorial.js') }}"></script>
+{% endblock %}

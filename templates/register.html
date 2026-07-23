@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Create Your Account — Project Forge{% endblock %}
+{% block content %}
+<div class="auth-wrap">
+  <div class="auth-card glass">
+    <h2>Create your account</h2>
+    <p class="subtitle">Join Project Forge and build your next big idea.</p>
+
+    <form method="POST" action="{{ url_for('auth.register') }}">
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" name="full_name" class="form-control" placeholder="e.g. Brethika A" required
+               value="{{ form.full_name or '' }}">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" name="email" class="form-control" placeholder="you@college.edu" required
+                 value="{{ form.email or '' }}">
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" name="phone" class="form-control" placeholder="10-digit number" required
+                 value="{{ form.phone or '' }}">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>College Name</label>
+        <input type="text" name="college_name" class="form-control" placeholder="Your college / institute" required
+               value="{{ form.college_name or '' }}">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Department</label>
+          <select name="department" class="form-control" required>
+            <option value="">Select department</option>
+            {% for d in departments %}
+              <option value="{{ d }}" {% if form.department == d %}selected{% endif %}>{{ d }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Year</label>
+          <select name="year" class="form-control" required>
+            <option value="">Select year</option>
+            {% for y in years %}
+              <option value="{{ y }}" {% if form.year == y %}selected{% endif %}>{{ y }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Create Password</label>
+          <input type="password" name="password" class="form-control" placeholder="At least 6 characters" required>
+        </div>
+        <div class="form-group">
+          <label>Confirm Password</label>
+          <input type="password" name="confirm_password" class="form-control" placeholder="Re-enter password" required>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+    </form>
+
+    <div class="auth-footer">
+      Already have an account? <a href="{{ url_for('auth.login') }}">Log in</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

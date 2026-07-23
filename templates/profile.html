@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}My Profile — Project Forge{% endblock %}
+{% block content %}
+<div class="dash-layout">
+  {% include "_sidebar.html" %}
+  {% set active = 'profile' %}
+
+  <main class="main-content">
+    <div class="glass profile-header">
+      <div class="profile-avatar-lg">{{ user.full_name[0]|upper }}</div>
+      <h2>{{ user.full_name }}</h2>
+      <p>{{ user.department }} · {{ user.year }} · {{ user.college_name }}</p>
+      <div class="profile-meta">
+        <span>📧 {{ user.email }}</span>
+        <span>📱 {{ user.phone }}</span>
+      </div>
+    </div>
+
+    <div class="grid stats-row">
+      <div class="glass stat-card">
+        <div class="num">{{ projects|length }}</div>
+        <div class="label">Submitted Projects</div>
+      </div>
+      <div class="glass stat-card">
+        <div class="num">{{ saved_projects|length }}</div>
+        <div class="label">Saved Projects</div>
+      </div>
+      <div class="glass stat-card">
+        <div class="num">{{ progress|length }}</div>
+        <div class="label">Tracked Progress</div>
+      </div>
+    </div>
+
+    <div class="page-header"><h1 style="font-size:20px;">Learning History & Progress</h1></div>
+    {% if progress %}
+      {% for p in progress %}
+      <div class="glass" style="padding:18px 22px; margin-bottom:12px;">
+        <div class="flex-between" style="margin-bottom:8px;">
+          <strong style="font-size:14px;">{{ p.title }}</strong>
+          <span style="font-size:12.5px; opacity:0.7;">{{ p.stage.replace('_', ' ')|title }}</span>
+        </div>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" style="width:{{ p.progress_percent }}%;"></div>
+        </div>
+      </div>
+      {% endfor %}
+    {% else %}
+    <div class="glass empty-state">
+      <div class="es-icon">📈</div>
+      <h3>No progress tracked yet</h3>
+      <p>Generate a project to start tracking your learning journey.</p>
+    </div>
+    {% endif %}
+
+    <div class="page-header" style="margin-top:24px;"><h1 style="font-size:20px;">Saved Projects</h1></div>
+    {% if saved_projects %}
+    <div class="grid cards-grid">
+      {% for p in saved_projects %}
+      <a href="{{ url_for('project.view_project', project_id=p.id) }}" class="glass project-card">
+        <span class="pc-domain">{{ p.domain }}</span>
+        <h3>{{ p.title }}</h3>
+        <span class="status-badge status-{{ p.status }}">{{ p.status.replace('_', ' ')|title }}</span>
+      </a>
+      {% endfor %}
+    </div>
+    {% else %}
+    <p style="opacity:0.65; font-size:14px;">No projects saved yet.</p>
+    {% endif %}
+  </main>
+</div>
+{% endblock %}

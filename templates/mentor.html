@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Find a Mentor — Project Forge{% endblock %}
+{% block content %}
+<div class="dash-layout">
+  {% include "_sidebar.html" %}
+  {% set active = 'mentor' %}
+
+  <main class="main-content">
+    <div class="page-header">
+      <h1>👨‍🏫 Find a Mentor</h1>
+      <p>Browse mentors, view their skills, and request guidance on your project.</p>
+    </div>
+
+    <div class="grid cards-grid">
+      {% for m in mentors %}
+      <div class="glass mentor-card">
+        <div class="mc-head">
+          <div class="mc-avatar">{{ m.name[0]|upper }}</div>
+          <div>
+            <h3>{{ m.name }}</h3>
+            <div class="mc-title">{{ m.title }}</div>
+          </div>
+        </div>
+        <div class="mc-rating">⭐ {{ m.rating }}/5.0</div>
+        <p class="mc-bio">{{ m.bio }}</p>
+        <div class="tag-list" style="margin-bottom:16px;">
+          {% for s in m.skills %}<span class="tag">{{ s }}</span>{% endfor %}
+        </div>
+        <div class="flex-between">
+          <span class="availability-badge avail-{{ m.availability }}">{{ m.availability }}</span>
+          {% if m.id in requested_mentor_ids %}
+            <button class="btn btn-secondary btn-sm" disabled>Requested ✓</button>
+          {% else %}
+            <button class="btn btn-primary btn-sm" onclick="openModal('modal-{{ m.id }}')">Request</button>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Request modal -->
+      <div class="modal-overlay" id="modal-{{ m.id }}">
+        <div class="glass modal-card" style="position:relative;">
+          <span class="modal-close" onclick="closeModal('modal-{{ m.id }}')">✕</span>
+          <h3>Request mentorship from {{ m.name }}</h3>
+          <form method="POST" action="{{ url_for('mentor.request_mentor', mentor_id=m.id) }}">
+            <div class="form-group">
+              <label>Your message / question</label>
+              <textarea name="message" class="form-control idea-textarea" style="min-height:100px;"
+                placeholder="e.g. I'd love guidance on my AI attendance system project — especially the face recognition part."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Send Request</button>
+          </form>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    {% if requests %}
+    <div class="page-header" style="margin-top:36px;">
+      <h1 style="font-size:20px;">Your Mentorship Requests</h1>
+    </div>
+    <div class="grid two-col-grid">
+      {% for r in requests %}
+      <div class="glass" style="padding:18px 22px;">
+        <div class="flex-between" style="margin-bottom:6px;">
+          <strong>{{ r.mentor_name }}</strong>
+          <span class="status-badge status-generated">{{ r.status|title }}</span>
+        </div>
+        <p style="font-size:13.5px; opacity:0.75;">{{ r.message or "No message added." }}</p>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </main>
+</div>
+{% endblock %}

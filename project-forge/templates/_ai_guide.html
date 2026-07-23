@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Mentor</title>
+</head>
+
+<body>
+
+<h1>🤖 AI Mentor</h1>
+
+<textarea id="question" placeholder="Type your doubt here..."></textarea>
+
+<br><br>
+
+<button onclick="sendQuestion()">Send</button>
+
+<button onclick="startVoice()">🎤 Speak</button>
+
+<button onclick="speakAnswer()">🔊 Voice Reply</button>
+
+<h3>AI Reply:</h3>
+
+<p id="answer"></p>
+
+
+<script>
+
+function startVoice(){
+
+    let speech = new webkitSpeechRecognition();
+
+    speech.lang = "en-US";
+
+    speech.start();
+
+    speech.onresult = function(event){
+
+        document.getElementById("question").value =
+        event.results[0][0].transcript;
+
+    }
+
+}
+
+
+function sendQuestion(){
+
+    let q = document.getElementById("question").value;
+
+    document.getElementById("answer").innerHTML =
+    "Thinking about: " + q;
+
+}
+
+
+function speakAnswer(){
+
+    let text =
+    document.getElementById("answer").innerText;
+
+    let voice = new SpeechSynthesisUtterance(text);
+
+    speechSynthesis.speak(voice);
+
+}
+
+</script>
+
+
+</body>
+</html>
