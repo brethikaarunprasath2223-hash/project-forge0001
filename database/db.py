@@ -30,5 +30,12 @@ def init_db():
 
     with open(schema_path, "r") as file:
         conn.executescript(file.read())
-
+    # Migration: add missing columns
+    try:
+        conn.execute(
+            "ALTER TABLE projects ADD COLUMN idea_text TEXT"
+        )
+    except sqlite3.OperationalError:
+        pass
+    conn.commit()
     conn.close()
