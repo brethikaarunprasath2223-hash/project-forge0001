@@ -20,6 +20,12 @@ def get_db_connection():
 
 
 def init_db():
+    def init_db():
+
+    conn = get_db_connection()
+
+    conn.execute("DROP TABLE IF EXISTS projects")
+
     columns = [
     "idea_text",
     "problem_statement",
