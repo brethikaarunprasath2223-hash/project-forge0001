@@ -24,6 +24,11 @@ def init_db():
 
     conn = get_db_connection()
 
+    print("DATABASE PATH:", DB_PATH)
+    def init_db():
+
+    conn = get_db_connection()
+
     conn.execute("DROP TABLE IF EXISTS projects")
 
    
