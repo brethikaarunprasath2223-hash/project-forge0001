@@ -10,17 +10,16 @@ CREATE TABLE IF NOT EXISTS users (
     dark_mode INTEGER DEFAULT 0,
     tutorial_seen INTEGER DEFAULT 0
 );
-
 CREATE TABLE IF NOT EXISTS projects (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER,
+    idea_text TEXT,
     title TEXT,
     abstract TEXT,
     tech_stack TEXT,
     roadmap TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
 CREATE TABLE IF NOT EXISTS mentors (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT,
