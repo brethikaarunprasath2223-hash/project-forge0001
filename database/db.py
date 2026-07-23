@@ -20,6 +20,32 @@ def get_db_connection():
 
 
 def init_db():
+    columns = [
+    "idea_text",
+    "problem_statement",
+    "objectives",
+    "features",
+    "advantages",
+    "disadvantages",
+    "similar_projects",
+    "suggested_improvements",
+    "future_scope",
+    "estimated_cost",
+    "estimated_duration",
+    "difficulty_level",
+    "required_software",
+    "required_hardware",
+    "domain",
+    "status"
+]
+
+for column in columns:
+    try:
+        conn.execute(
+            f"ALTER TABLE projects ADD COLUMN {column} TEXT"
+        )
+    except sqlite3.OperationalError:
+        pass
 
     conn = get_db_connection()
 

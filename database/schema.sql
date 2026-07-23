@@ -13,11 +13,35 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS projects (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER,
+
     idea_text TEXT,
     title TEXT,
     abstract TEXT,
+    problem_statement TEXT,
+
+    objectives TEXT,
+    features TEXT,
+
+    advantages TEXT,
+    disadvantages TEXT,
+
+    similar_projects TEXT,
+    suggested_improvements TEXT,
+    future_scope TEXT,
+
     tech_stack TEXT,
     roadmap TEXT,
+
+    estimated_cost TEXT,
+    estimated_duration TEXT,
+    difficulty_level TEXT,
+
+    required_software TEXT,
+    required_hardware TEXT,
+
+    domain TEXT,
+    status TEXT DEFAULT 'Planning',
+
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 CREATE TABLE IF NOT EXISTS mentors (
