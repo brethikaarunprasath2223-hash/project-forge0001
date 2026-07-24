@@ -18,13 +18,10 @@ CREATE TABLE IF NOT EXISTS projects (
     title TEXT,
     abstract TEXT,
     problem_statement TEXT,
-
     objectives TEXT,
     features TEXT,
-
     advantages TEXT,
     disadvantages TEXT,
-
     similar_projects TEXT,
     suggested_improvements TEXT,
     future_scope TEXT,
@@ -40,19 +37,10 @@ CREATE TABLE IF NOT EXISTS projects (
     required_hardware TEXT,
 
     domain TEXT,
-    status TEXT DEFAULT 'Planning',
+    status TEXT,
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-CREATE TABLE IF NOT EXISTS mentors (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT,
-    email TEXT,
-    skills TEXT,
-    bio TEXT,
-    rating REAL
-);
-
 CREATE TABLE IF NOT EXISTS feedback (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER,
@@ -64,6 +52,7 @@ CREATE TABLE IF NOT EXISTS user_progress (
     user_id INTEGER,
     project_id INTEGER,
     stage TEXT,
+    progress_percent INTEGER DEFAULT 0,
     completed INTEGER DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP

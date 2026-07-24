@@ -13,6 +13,7 @@ def get_db_connection():
 
 def init_db():
     conn = get_db_connection()
+print("DATABASE RESETTING...")
 
     # Reset old database tables (development only)
     conn.execute("DROP TABLE IF EXISTS user_progress")
