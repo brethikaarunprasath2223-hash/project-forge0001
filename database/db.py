@@ -14,6 +14,10 @@ def get_db_connection():
 def init_db():
     conn = get_db_connection()
 
+    # Reset old database tables (development only)
+    conn.execute("DROP TABLE IF EXISTS user_progress")
+    conn.execute("DROP TABLE IF EXISTS projects")
+
     schema_path = os.path.join(
         os.path.dirname(__file__),
         "schema.sql"
